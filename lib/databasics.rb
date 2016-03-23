@@ -29,22 +29,35 @@ module Databasics
 			puts "Your id is #{new_user.id}"
 		end
 
+		# Gives the addres of a specified user
 		def give_address
 			puts "For which user would you like to find an address? Please input first name:"
 			name1=gets.chomp
 			puts "Please input last name:"
 			name2=gets.chomp
 			user_address = User.find_by(first_name: name1, last_name: name2)
-			id_address=user_address.id
-
-			address=Address.find_by(user_id: id_address)
-			puts "Your current address is #{address}."
+			
+			address=Address.find(user_address)
+			puts "Your current address is #{address.street}."
 		end
 
 		#
 		#Add a method to display the items a user has ordered in the past and the number ordered.
+		def display_items
+			puts "What user's items would you like to view? Input user ID:"
+			person_id = gets.chomp
+
+			puts 
+		end
 
 		#Add a method to prompt a user for an item name and quantity and create a new order. If no such item can be found, you may tell them the order has been declined.
+
+
+		def run
+			# user_info
+			# give_address
+			display_items
+		end
 	end
 
 	
@@ -55,4 +68,5 @@ module Databasics
 end
 
 app= Databasics::App.new
-app.give_address
+
+app.run

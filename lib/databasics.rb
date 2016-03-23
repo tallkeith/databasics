@@ -22,10 +22,8 @@ module Databasics
 			last_name=gets.chomp
 			puts "What is your email?"
 			email=gets.chomp
-
 			new_user = User.new(first_name: first_name, last_name: last_name, email: email)
 			new_user.save
-
 			puts "Your id is #{new_user.id}"
 		end
 
@@ -38,16 +36,25 @@ module Databasics
 			user_address = User.find_by(first_name: name1, last_name: name2)
 			
 			address=Address.find(user_address)
-			puts "Your current address is #{address.street}."
+
+			address.each do |address|
+				puts "Your current address is #{address.street}, #{address.city}, #{address.state} #{address.zip}."
+			end
+			
 		end
 
 		#
 		#Add a method to display the items a user has ordered in the past and the number ordered.
 		def display_items
 			puts "What user's items would you like to view? Input user ID:"
-			person_id = gets.chomp
+			user_id = gets.chomp
 
-			user_orders = Order.where(user_id: person_id)
+			user=User.find(user_id)
+			orders = Order.where(user_id: user.id)
+			orders.each do |order|
+				item=Item.find(order.item_id)
+				puts "You ordered #{order.quantity} #{item.title.pluralize}"
+			end
 		end
 
 		#Add a method to prompt a user for an item name and quantity and create a new order. If no such item can be found, you may tell them the order has been declined.

@@ -47,7 +47,7 @@ module Databasics
 			puts "What user's items would you like to view? Input user ID:"
 			person_id = gets.chomp
 
-			puts 
+			user_orders = Order.where(user_id: person_id)
 		end
 
 		#Add a method to prompt a user for an item name and quantity and create a new order. If no such item can be found, you may tell them the order has been declined.
